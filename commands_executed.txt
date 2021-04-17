@@ -1,0 +1,38 @@
+https://openapi-generator.tech/#try
+
+# install the latest version of "openapi-generator-cli"
+npm install @openapitools/openapi-generator-cli -g
+
+# use a specific version of "openapi-generator-cli"
+openapi-generator-cli version-manager set 5.0.1
+
+# Or install it as dev-dependency in your node.js projects
+npm install @openapitools/openapi-generator-cli -D
+
+Then, to generate an elixir stub for PeerTube,
+
+get the yaml file of their specification:
+https://raw.githubusercontent.com/Chocobozzz/PeerTube/develop/support/doc/api/openapi.yaml
+
+(for latest, check the top of the ref page for it)
+https://docs.joinpeertube.org/api-rest-reference.html
+
+then execute below:
+
+openapi-generator-cli generate -i openapi.yaml -g elixir -o .
+
+it generated a mix project :
+
+-- mix.exs ---
+...
+
+  def project do
+    [app: :peer_tube,
+     version: "3.1.0",
+     elixir: "~> 1.6",
+     build_embedded: Mix.env == :prod,
+     start_permanent: Mix.env == :prod,
+     deps: deps()]
+  end
+...
+-- mix.exs ---
